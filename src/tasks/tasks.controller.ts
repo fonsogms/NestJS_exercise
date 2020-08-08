@@ -20,11 +20,15 @@ import { TaskStatus } from './task-status.enum';
 @Controller('tasks')
 export class TasksController {
   constructor(private tasksService: TasksService) {}
-
+  @Get('/')
+  async getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto) {
+    return this.tasksService.getTasks(filterDto);
+  }
   @Get('/:id')
   async getTaskbyId(@Param('id', ParseIntPipe) id: number): Promise<Task> {
     return this.tasksService.getTaskbyId(id);
   }
+
   @Post()
   @UsePipes(ValidationPipe)
   async createTask(
