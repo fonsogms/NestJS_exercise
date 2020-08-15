@@ -9,7 +9,7 @@ import { PassportModule } from '@nestjs/passport';
 @Module({
   imports: [
     TasksModule,
-    TypeOrmModule.forRoot(typeOrmConfig),
+    TypeOrmModule.forRoot(typeOrmConfig()),
     AuthModule,
     PassportModule,
   ],
