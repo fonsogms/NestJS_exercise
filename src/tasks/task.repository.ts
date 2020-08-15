@@ -7,7 +7,6 @@ import { GetTasksFilterDto } from './get-tasks-filter.dto';
 export class TaskRepository extends Repository<Task> {
   async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
     const { title, description } = createTaskDto;
-
     const newTask: Task = new Task();
     newTask.title = title;
     newTask.description = description;
