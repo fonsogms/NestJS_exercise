@@ -28,19 +28,22 @@ export class TasksService {
   async createTask(createTaskDto: CreateTaskDto, user: User): Promise<Task> {
     return await this.taskRepository.createTask(createTaskDto, user);
   }
-  async deleteTask(id: number): Promise<void> {
-    const deletion = await this.taskRepository.delete({ id: id });
+  async deleteTask(id: number, user: User): Promise<void> {
+    const deletion = await this.taskRepository.delete({
+      id: id,
+      userId: user.id,
+    });
     console.log(deletion);
     if (deletion.affected === 0) {
       throw new NotFoundException(`task with id ${id} not found`);
     }
   }
 
-  async updateTaskStatus(id: number, status: TaskStatus) {
-    /*  const foundTask = await this.getTaskbyId(id);
+  async updateTaskStatus(id: number, status: TaskStatus, user: User) {
+    const foundTask = await this.getTaskbyId(id, user);
     foundTask.status = status;
     foundTask.save();
-    return foundTask; */
+    return foundTask;
   }
   /* 
     getAllTasks(): Task[] {

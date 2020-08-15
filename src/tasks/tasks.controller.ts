@@ -52,16 +52,20 @@ export class TasksController {
     return this.tasksService.createTask(createTaskDto, user);
   }
   @Delete('/:id')
-  async deleteTask(@Param('id') id: number): Promise<void> {
-    this.tasksService.deleteTask(id);
+  async deleteTask(
+    @Param('id') id: number,
+    @GetUser() user: User,
+  ): Promise<void> {
+    this.tasksService.deleteTask(id, user);
   }
-  /*   @Patch('/:id')
+  @Patch('/:id')
   async updateTaskStatus(
     @Param('id', ParseIntPipe) id: number,
     @Body('status', TaskStatusValidationPipe) status: TaskStatus,
+    @GetUser() user: User,
   ): Promise<Task> {
-    return this.tasksService.updateTaskStatus(id, status);
-  } */
+    return this.tasksService.updateTaskStatus(id, status, user);
+  }
   /* @Get()
 
   getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto): Task[] {
